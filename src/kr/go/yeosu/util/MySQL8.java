@@ -26,6 +26,33 @@ public class MySQL8 {
 	public final static String UPDATE_USER2 = "update tbl_user set name=?, phone=?, addr=?, email=? where id=?";
 	public final static String DELETE_USER = "delete from tbl_user where id=?";
 	
+	//Notice 관련 SQL
+		public final static String NOTICE_SELECT_ALL = "select * from tbl_notice order by idx desc";
+		public final static String NOTICE_SELECT_ONE = "select * from tbl_notice where idx=?";
+		public final static String NOTICE_READCOUNT_UPDATE = "update tbl_notice set readcnt=readcnt+1 where idx=?";
+		public final static String INSERT_NOTICE = "insert into tbl_notice values (default, ?, ?, ?, ?, default, default)";
+		public final static String UPDATE_NOTICE = "update tbl_notice set title=?, content=?, file1=?, resdate=sysdate where idx=?";
+		public final static String UPDATE_NOTICE2 = "update tbl_notice set title=?, content=?, resdate=sysdate where idx=?";
+		public final static String DELETE_NOTICE = "delete from tbl_notice where idx=?";
+		
+		//Place 관련 SQL
+		
+		public final static String PLACE_CATENAME_SELECT = "select * from tbl_cate where cate=?";
+		public final static String PLACE_SELECT_BYCATE = "select * from tbl_place where cate=? order by pname";
+		public final static String PLACE_SELECT = "select * from tbl_place where pcode=?";
+		
+		public final static String PLACE_CATE_SELECT = "select * from tbl_place where cate=?";
+		public final static String PLACE_CATE_SELECT2 = "select * from tbl_place where cate like ?||'%'";
+		public final static String PLACE_CATE_SELECT3 = "select * from tbl_place where cate like concat(?, '%')";
+		
+		public final static String FIRST_CATEGORY_SELECT = "select distinct substr(cate,1,2) as ct, gname from tbl_cate group by substr(cate,1,2), gname order by ct";
+		public final static String SECOND_CATEGORY_SELECT = "select cate, cname from tbl_cate where cate like ?||'%' order by cate";
+		
+		public final static String PCODE_GENERATOR = "select pcode from (select * from tbl_place where cate=? order by pcode desc) where rownum = 1";
+		public final static String INSERT_PLACE = "insert into tbl_place values (?, ?, ?, ?, ?, ?, ?)";
+		public final static String UPDATE_PLACE = "update tbl_place set pname=?, cate=?, addr=?, phone=?, comm=?, pic=? where pcode=?";
+		public final static String DELETE_PLACE = "delete from tbl_place where pcode=?";
+	
 	public static Connection getConnection() throws ClassNotFoundException, SQLException {
 		Class.forName(driver);
 		Connection con = DriverManager.getConnection(url, user, pass);
