@@ -6,12 +6,13 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class MySQL8 {
-	static String driver = "com.mysql.cj.jdbc.Driver";
-	static String url = "jdbc:mysql://localhost:3306/yeosu?serverTimezone=Asia/Seoul";
+public class MariaDB10 {
+	static String driver = "org.mariadb.jdbc.Driver";
+	static String url = "jdbc:mariadb://127.0.0.1:3308/company";
 	static String user = "root";
 	static String pass = "1234";
 	
+	//샘플 관련 SQL
 	public final static String SAMPLE_SELECT_ALL = "select * from sample1 order by item3 desc";
 	public final static String SAMPLE_SELECT_ONE = "select * from sample1 where item1=?";
 	public final static String SAMPLE_INSERT = "insert into sample1 values(?,?,default)";
@@ -52,21 +53,7 @@ public class MySQL8 {
 	public final static String INSERT_PLACE = "insert into tbl_place values (?, ?, ?, ?, ?, ?, ?)";
 	public final static String UPDATE_PLACE = "update tbl_place set pname=?, cate=?, addr=?, phone=?, comm=?, pic=? where pcode=?";
 	public final static String DELETE_PLACE = "delete from tbl_place where pcode=?";
-	
-	//QnA관련SQL
-	public final static String QNO_GENERATOR = "select qno from (select * from qna order by qno desc) where rownum = 1";
-	public final static String ADD_QNA = "insert into qna values (?,?,?,?,sysdate,1,?,0)";
-	public final static String ADD_REPLY = "insert into qna values (?,?,?,?,sysdate,2,?,0)";
-	public final static String QNA_LIST = "select * from qna order by parno desc, qno asc";
-	public final static String QNA_SELECT = "select * from qna where parno=? order by qno asc";
-	public final static String QNA_SELECT_ONE = "select * from qna where qno=?";
-	public final static String REPLY_LIST = "select * from qna where parno=? and lev=2 order by qno asc";
-	public final static String REPLY_SELECT = "select * from qna where parno=? and lev=2 order by qno asc";
-	public final static String REPLY_SELECT_ONE = "select * from qna where lev=2 and qno=? order by qno asc";
-	public final static String UPDATE_QNA = "update qna set title=?, content=? where qno=?";
-	public final static String DELETE_QNA = "delete from qna where parno=?";
-	public final static String DELETE_REPLY = "delete from qna where qno=?";
-
+			
 	public static Connection getConnection() throws ClassNotFoundException, SQLException {
 		Class.forName(driver);
 		Connection con = DriverManager.getConnection(url, user, pass);
