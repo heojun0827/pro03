@@ -34,7 +34,7 @@ padding: 24px; border:2px solid #eee; height:600px; overflow-y:auto; }
 						<th>비밀번호</th>
 						<td>
 							<input type="password" name="pw" id="pw" placeholder="비밀번호 입력" class="form-control" maxlength="15" value="${user.pw }" required />
-							<p>비밀번호는 최소 8자리에서 최대 16자리까지 숫자, 영문, 특수문자 각 1개 이상 포함되어야 함</p>
+							<p></p>
 						</td>
 					</tr>
 					<tr>

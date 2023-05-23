@@ -31,12 +31,11 @@ public class MySQL8 {
 	public final static String NOTICE_SELECT_ONE = "select * from tbl_notice where idx=?";
 	public final static String NOTICE_READCOUNT_UPDATE = "update tbl_notice set readcnt=readcnt+1 where idx=?";
 	public final static String INSERT_NOTICE = "insert into tbl_notice values (default, ?, ?, ?, ?, default, default)";
-	public final static String UPDATE_NOTICE = "update tbl_notice set title=?, content=?, file1=?, resdate=sysdate where idx=?";
-	public final static String UPDATE_NOTICE2 = "update tbl_notice set title=?, content=?, resdate=sysdate where idx=?";
+	public final static String UPDATE_NOTICE = "update tbl_notice set title=?, content=?, file1=?, regdate=default where idx=?";
+	public final static String UPDATE_NOTICE2 = "update tbl_notice set title=?, content=?, regdate=default where idx=?";
 	public final static String DELETE_NOTICE = "delete from tbl_notice where idx=?";
 	
 	//Place 관련 SQL
-	
 	public final static String PLACE_CATENAME_SELECT = "select * from tbl_cate where cate=?";
 	public final static String PLACE_SELECT_BYCATE = "select * from tbl_place where cate=? order by pname";
 	public final static String PLACE_SELECT = "select * from tbl_place where pcode=?";
@@ -55,8 +54,8 @@ public class MySQL8 {
 	
 	//QnA관련SQL
 	public final static String QNO_GENERATOR = "select qno from (select * from qna order by qno desc) where rownum = 1";
-	public final static String ADD_QNA = "insert into qna values (?,?,?,?,sysdate,1,?,0)";
-	public final static String ADD_REPLY = "insert into qna values (?,?,?,?,sysdate,2,?,0)";
+	public final static String ADD_QNA = "insert into qna values (?,?,?,?,now(),1,?,0)";
+	public final static String ADD_REPLY = "insert into qna values (?,?,?,?,now(),2,?,0)";
 	public final static String QNA_LIST = "select * from qna order by parno desc, qno asc";
 	public final static String QNA_SELECT = "select * from qna where parno=? order by qno asc";
 	public final static String QNA_SELECT_ONE = "select * from qna where qno=?";

@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import kr.go.yeosu.dto.Qna;
+import kr.go.yeosu.dto.QnaDTO;
 import kr.go.yeosu.util.MySQL8;
 
 public class QnaDAO {
@@ -58,7 +58,7 @@ public class QnaDAO {
 	}
 	
 	//질문 등록하기
-	public int addQna(Qna qna){
+	public int addQna(QnaDTO qna){
 		int cnt = 0;
 		try {
 			con = MySQL8.getConnection();
@@ -80,7 +80,7 @@ public class QnaDAO {
 	}
 	
 	//답변 등록하기
-	public int addReply(Qna qna){
+	public int addReply(QnaDTO qna){
 		int cnt = 0;
 		try {
 			con = MySQL8.getConnection();
@@ -138,7 +138,7 @@ public class QnaDAO {
 	}
 	
 	//질문 수정하기
-	public int updateQna(Qna qna){
+	public int updateQna(QnaDTO qna){
 		int cnt = 0;
 		try {
 			con = MySQL8.getConnection();
@@ -158,7 +158,7 @@ public class QnaDAO {
 	} 
 
 	//답변 수정하기
-	public int updateReply(Qna qna){
+	public int updateReply(QnaDTO qna){
 		int cnt = 0;
 		try {
 			con = MySQL8.getConnection();
@@ -178,14 +178,14 @@ public class QnaDAO {
 	}
 	
 	//전체 질문 및 답변 목록
-	public ArrayList<Qna> getQnaList(){
-		ArrayList<Qna> qnaList = new ArrayList<Qna>();
+	public ArrayList<QnaDTO> getQnaList(){
+		ArrayList<QnaDTO> qnaList = new ArrayList<QnaDTO>();
 		try {
 			con = MySQL8.getConnection();
 			pstmt = con.prepareStatement(MySQL8.QNA_LIST);
 			rs = pstmt.executeQuery();
 			while(rs.next()){
-				Qna qna = new Qna();
+				QnaDTO qna = new QnaDTO();
 				qna.setQno(rs.getString("qno"));
 				qna.setTitle(rs.getString("title"));
 				qna.setContent(rs.getString("content"));
@@ -207,15 +207,15 @@ public class QnaDAO {
 	}
 	
 	//해당 질문과 그 답변 그룹
-	public ArrayList<Qna> getQna(String qno){
-		ArrayList<Qna> qnaList = new ArrayList<Qna>();
+	public ArrayList<QnaDTO> getQna(String qno){
+		ArrayList<QnaDTO> qnaList = new ArrayList<QnaDTO>();
 		try {
 			con = MySQL8.getConnection();
 			pstmt = con.prepareStatement(MySQL8.QNA_SELECT);
 			pstmt.setString(1, qno);
 			rs = pstmt.executeQuery();
 			while(rs.next()){
-				Qna qna = new Qna();
+				QnaDTO qna = new QnaDTO();
 				qna.setQno(rs.getString("qno"));
 				qna.setTitle(rs.getString("title"));
 				qna.setContent(rs.getString("content"));
@@ -237,8 +237,8 @@ public class QnaDAO {
 	} 
 	
 	//질문 상세보기
-	public Qna getQna2(String qno){
-		Qna qna = new Qna();
+	public QnaDTO getQna2(String qno){
+		QnaDTO qna = new QnaDTO();
 		try {
 			con = MySQL8.getConnection();
 			pstmt = con.prepareStatement(MySQL8.QNA_SELECT_ONE);
@@ -265,15 +265,15 @@ public class QnaDAO {
 	} 
 	
 	//해당 질문에 대한 답변 목록(질문 제외)
-	public ArrayList<Qna> getReplyList(String qno){
-		ArrayList<Qna> qnaList = new ArrayList<Qna>();
+	public ArrayList<QnaDTO> getReplyList(String qno){
+		ArrayList<QnaDTO> qnaList = new ArrayList<QnaDTO>();
 		try {
 			con = MySQL8.getConnection();
 			pstmt = con.prepareStatement(MySQL8.REPLY_LIST);
 			pstmt.setString(1, qno);
 			rs = pstmt.executeQuery();
 			while(rs.next()){
-				Qna qna = new Qna();
+				QnaDTO qna = new QnaDTO();
 				qna.setQno(rs.getString("qno"));
 				qna.setTitle(rs.getString("title"));
 				qna.setContent(rs.getString("content"));
