@@ -184,7 +184,9 @@ public class QnaDAO {
 			con = MySQL8.getConnection();
 			pstmt = con.prepareStatement(MySQL8.QNA_LIST);
 			rs = pstmt.executeQuery();
+			System.out.println("qnaList 실행중");
 			while(rs.next()){
+				System.out.println("qna목록 받아오는중");
 				QnaDTO qna = new QnaDTO();
 				qna.setQno(rs.getString("qno"));
 				qna.setTitle(rs.getString("title"));

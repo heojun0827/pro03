@@ -10,8 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import kr.go.yeosu.model.QnaDAO;
 import kr.go.yeosu.dto.QnaDTO;
+import kr.go.yeosu.model.QnaDAO;
 
 @WebServlet("/UpdateQna.do")
 public class UpdateQnaCtrl extends HttpServlet {

@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 import kr.go.yeosu.dto.QnaDTO;
 import kr.go.yeosu.model.QnaDAO;
 
-
 @WebServlet("/AddReplyPro.do")
 public class AddReplyProCtrl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -32,13 +31,12 @@ public class AddReplyProCtrl extends HttpServlet {
 		
 		int cnt = dao.addReply(qna);
 		
-		if(cnt==0){
+		if(cnt==0){ //답변하기 실패
 			String msg = "답변이 등록되지 못했습니다.";
 			request.setAttribute("msg", msg);
 			response.sendRedirect("AddReply.do?parno="+parno);
-		} else {
+		} else { //답변하기 성공
 			response.sendRedirect("QnaList.do");
 		}
 	}
-
 }

@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletResponse;
 import kr.go.yeosu.dto.QnaDTO;
 import kr.go.yeosu.model.QnaDAO;
 
-
 @WebServlet("/AddReply.do")
 public class AddReplyCtrl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -30,6 +29,7 @@ public class AddReplyCtrl extends HttpServlet {
 		request.setAttribute("msg", msg);
 		request.setAttribute("qna", qna);
 		
+		//디스패치로 view를 생성하여 noticeList.jsp로 요청 받은 notiList를 포워드
 		RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/qna/addReply.jsp");
 		view.forward(request, response);
 	}

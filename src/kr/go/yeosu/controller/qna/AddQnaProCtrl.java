@@ -22,8 +22,8 @@ public class AddQnaProCtrl extends HttpServlet {
 		
 		QnaDTO qna = new QnaDTO();
 		QnaDAO dao = new QnaDAO();
-		String qno = dao.getQnoGenerator();
-		qna.setQno(qno);
+		
+		qna.setQno(dao.getQnoGenerator());
 		qna.setTitle(request.getParameter("title"));
 		qna.setContent(request.getParameter("content"));
 		qna.setAuthor(request.getParameter("author"));

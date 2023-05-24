@@ -35,25 +35,25 @@ public class MySQL8 {
 	public final static String UPDATE_NOTICE2 = "update tbl_notice set title=?, content=?, regdate=default where idx=?";
 	public final static String DELETE_NOTICE = "delete from tbl_notice where idx=?";
 	
-	//Place 관련 SQL
-	public final static String PLACE_CATENAME_SELECT = "select * from tbl_cate where cate=?";
-	public final static String PLACE_SELECT_BYCATE = "select * from tbl_place where cate=? order by pname";
-	public final static String PLACE_SELECT = "select * from tbl_place where pcode=?";
-	
-	public final static String PLACE_CATE_SELECT = "select * from tbl_place where cate=?";
-	public final static String PLACE_CATE_SELECT2 = "select * from tbl_place where cate like ?||'%'";
+	//Place 관련 SQL	
+	public final static String PLACE_SELECT_ALL = "select * from tbl_place order by cate desc"; //관리자용 전체 장소보기
+	public final static String PLACE_SELECT = "select * from tbl_place where pcode=?";		//장소 상세보기
+		
+	public final static String PLACE_CATE_SELECT = "select * from tbl_place where cate=?";	//카테고리별 장소목록(일반회원)
+	public final static String PLACE_CATE_SELECT2 = "select * from tbl_place where cate like ?||'%'"; //카테고리별 장소목록(관리자)
 	public final static String PLACE_CATE_SELECT3 = "select * from tbl_place where cate like concat(?, '%')";
 	
-	public final static String FIRST_CATEGORY_SELECT = "select distinct substr(cate,1,2) as ct, gname from tbl_cate group by substr(cate,1,2), gname order by ct";
-	public final static String SECOND_CATEGORY_SELECT = "select cate, cname from tbl_cate where cate like ?||'%' order by cate";
+	public final static String PLACE_CNAME_SELECT = "select * from tbl_cate where cate=?";	//카테고리 로딩
+	public final static String FIRST_CATEGORY_SELECT = "select distinct substr(cate,1,2) as ct, gname from tbl_cate group by substr(cate,1,2), gname order by ct";	//대분류코드반환
+	public final static String SECOND_CATEGORY_SELECT = "select cate, cname from tbl_cate where cate like ?||'%' order by cate";	//중분류코드반환
+	public final static String PCODE_GENERATOR = "select * from tbl_place where cate=? order by pcode desc limit 1";	//pcode 발생기
 	
-	public final static String PCODE_GENERATOR = "select pcode from (select * from tbl_place where cate=? order by pcode desc) where rownum = 1";
 	public final static String INSERT_PLACE = "insert into tbl_place values (?, ?, ?, ?, ?, ?, ?)";
 	public final static String UPDATE_PLACE = "update tbl_place set pname=?, cate=?, addr=?, phone=?, comm=?, pic=? where pcode=?";
 	public final static String DELETE_PLACE = "delete from tbl_place where pcode=?";
-	
+
 	//QnA관련SQL
-	public final static String QNO_GENERATOR = "select qno from (select * from qna order by qno desc) where rownum = 1";
+	public final static String QNO_GENERATOR = "select * from qna order by qno desc limit 1 ;";
 	public final static String ADD_QNA = "insert into qna values (?,?,?,?,now(),1,?,0)";
 	public final static String ADD_REPLY = "insert into qna values (?,?,?,?,now(),2,?,0)";
 	public final static String QNA_LIST = "select * from qna order by parno desc, qno asc";
