@@ -8,7 +8,7 @@
 <html>
 <head>
 <%@ include file="../../common.jsp" %>
-<title>장소 등록하기</title>
+<title>상품 등록하기</title>
 <style>
 .container-fluid { width:1280px; }
 </style>
@@ -116,7 +116,7 @@
 						$("#cate").empty();
 						$("#cate").append("<option value=''>선택안함</option>");
 						for(var c in ctList){
-							$("#cate").append("<option value='"+ctList[c]["cate"]+"'>"+ctList[c]["catename"]+"</option>");
+							$("#cate").append("<option value='"+ctList[c]["cate"]+"'>"+ctList[c]["cname"]+"</option>");
 						}
 					}
 				});				

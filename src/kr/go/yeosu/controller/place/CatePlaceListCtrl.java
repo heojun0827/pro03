@@ -14,29 +14,33 @@ import javax.servlet.http.HttpServletResponse;
 import kr.go.yeosu.dto.PlaceDTO;
 import kr.go.yeosu.model.PlaceDAO;
 
-
-@WebServlet("/PlaceList.do")
-public class GetPlaceListCtrl extends HttpServlet {
+@WebServlet("/CatePlaceList.do")
+public class CatePlaceListCtrl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	
+       
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String cate = request.getParameter("cate");
+		String cate1 = cate;
 		PlaceDAO dao = new PlaceDAO();
 		ArrayList<PlaceDTO> placeList = new ArrayList<PlaceDTO>();
 		HashMap<String, String> cateMap = new HashMap<String, String>();
-		if(cate==null){
+		
+		if(cate1!=null && cate1.length()<=2){
+			cate1 = cate1 + "01";
+		} else if(cate1==null){
 			placeList = dao.getPlaceList();
-			cate = "0101";
-			cateMap.put("catename", "전체");
-		} else {
-			placeList = dao.getCatePlaceDTOList(cate);
-			cateMap = dao.getCategory(cate);
+			cate1 = "0101";
+			cateMap.put("gname", "전체");	
+			cateMap.put("cname", "전체");			
 		}
+		
+		placeList = dao.catePlaceList(cate);
+		cateMap = dao.getCategory(cate1);
 		
 		request.setAttribute("placeList", placeList);
 		request.setAttribute("cateMap", cateMap);
 		
-		//디스패치로 view를 생성하여 placeList.jsp로 요청 받은 placeList를 포워드
+		//디스패치로 view를 생성하여 proList.jsp로 요청 받은 proList를 포워드
 		RequestDispatcher view = request.getRequestDispatcher("/place/placeList.jsp");
 		view.forward(request, response);
 	}

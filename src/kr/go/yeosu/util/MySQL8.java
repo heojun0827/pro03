@@ -12,6 +12,7 @@ public class MySQL8 {
 	static String user = "root";
 	static String pass = "1234";
 	
+	//샘플 관련 SQL
 	public final static String SAMPLE_SELECT_ALL = "select * from sample1 order by item3 desc";
 	public final static String SAMPLE_SELECT_ONE = "select * from sample1 where item1=?";
 	public final static String SAMPLE_INSERT = "insert into sample1 values(?,?,default)";
@@ -40,18 +41,25 @@ public class MySQL8 {
 	public final static String PLACE_SELECT = "select * from tbl_place where pcode=?";		//장소 상세보기
 		
 	public final static String PLACE_CATE_SELECT = "select * from tbl_place where cate=?";	//카테고리별 장소목록(일반회원)
-	public final static String PLACE_CATE_SELECT2 = "select * from tbl_place where cate like ?||'%'"; //카테고리별 장소목록(관리자)
+	public final static String PLACE_CATE_SELECT2 = "select * from tbl_place where cate like ?"; //카테고리별 장소목록(관리자)
 	public final static String PLACE_CATE_SELECT3 = "select * from tbl_place where cate like concat(?, '%')";
 	
 	public final static String PLACE_CNAME_SELECT = "select * from tbl_cate where cate=?";	//카테고리 로딩
 	public final static String FIRST_CATEGORY_SELECT = "select distinct substr(cate,1,2) as ct, gname from tbl_cate group by substr(cate,1,2), gname order by ct";	//대분류코드반환
-	public final static String SECOND_CATEGORY_SELECT = "select cate, cname from tbl_cate where cate like ?||'%' order by cate";	//중분류코드반환
+	public final static String SECOND_CATEGORY_SELECT = "select cate, cname, gname from tbl_cate where cate like ? order by cate";	//중분류코드반환
 	public final static String PCODE_GENERATOR = "select * from tbl_place where cate=? order by pcode desc limit 1";	//pcode 발생기
 	
 	public final static String INSERT_PLACE = "insert into tbl_place values (?, ?, ?, ?, ?, ?, ?)";
 	public final static String UPDATE_PLACE = "update tbl_place set pname=?, cate=?, addr=?, phone=?, comm=?, pic=? where pcode=?";
 	public final static String DELETE_PLACE = "delete from tbl_place where pcode=?";
-
+	
+	//Review 관련 SQL
+	public final static String REVIEW_SELECT_ALL = "select * from tbl_review order by regdate desc";
+	public final static String REVIEW_SELECT_ONE = "select * from tbl_review where pcode=?";
+	public final static String REVIEW_INSERT = "insert into tbl_review(cate, pcode, id, review, pic) values (?,?,?,?,?)";
+	public final static String REVIEW_UPDATE = "update tbl_review SET review=? where id=? and r_num=?";
+	public final static String REVIEW_DELETE = "delete from tbl_review where r_num=?";
+		
 	//QnA관련SQL
 	public final static String QNO_GENERATOR = "select * from qna order by qno desc limit 1 ;";
 	public final static String ADD_QNA = "insert into qna values (?,?,?,?,now(),1,?,0)";
@@ -65,7 +73,15 @@ public class MySQL8 {
 	public final static String UPDATE_QNA = "update qna set title=?, content=? where qno=?";
 	public final static String DELETE_QNA = "delete from qna where parno=?";
 	public final static String DELETE_REPLY = "delete from qna where qno=?";
-
+		
+	//FAQ관련SQL
+	public final static String FNO_GENERATOR = "select * from faq order by fno desc limit 1 ;";
+	public final static String ADD_FAQ = "insert into faq values (?,?,?,now())";
+	public final static String UPDATE_FAQ = "update faq set fquestion=?, fanswer=? where fno=?";
+	public final static String DELETE_FAQ = "delete from faq where fno=?";
+	public final static String GET_FAQ = "select * from faq order by fno asc";
+	public final static String FAQ_SELECT_ONE = "select * from faq where fno=?";
+	
 	public static Connection getConnection() throws ClassNotFoundException, SQLException {
 		Class.forName(driver);
 		Connection con = DriverManager.getConnection(url, user, pass);

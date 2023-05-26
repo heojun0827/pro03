@@ -37,6 +37,12 @@ create table tbl_review(
 	pic varchar(150),
 	regdate datetime default current_timestamp	
 	);
-
+create table qna(qno varchar(8) primary key, title varchar(100), content varchar(1000), author varchar(20), resdate datetime default current_timestamp, lev int, parno varchar(8), visited int default 0);
+	
+	
+create table faq(fno varchar(8) primary key,
+fquestion varchar(500), fanswer varchar(500), 
+resdate datetime default current_timestamp
+);
 
 

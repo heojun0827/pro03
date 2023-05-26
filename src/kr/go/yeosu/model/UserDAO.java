@@ -152,6 +152,7 @@ public class UserDAO {
 					user.setPw(vpw+hpw);
 					user.setPhone(rs.getString("Phone"));
 					user.setEmail(rs.getString("email"));
+					user.setName(rs.getString("name"));
 					user.setRegdate(rs.getString("regdate"));
 					user.setAddr(rs.getString("addr"));
 

@@ -30,7 +30,7 @@ padding: 24px; border:2px solid #eee; height:600px; overflow-y:auto; }
 				<tr>
 					<th>비밀번호</th>
 					<td>
-						${user.pw }
+					${user.pw }
 					</td>
 				</tr>
 				<tr>
