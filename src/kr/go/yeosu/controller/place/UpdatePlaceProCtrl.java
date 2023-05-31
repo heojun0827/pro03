@@ -1,7 +1,6 @@
 package kr.go.yeosu.controller.place;
 
 import java.io.IOException;
-import java.util.Enumeration;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
@@ -32,12 +31,11 @@ public class UpdatePlaceProCtrl extends HttpServlet {
 		String uploadFilePath = context.getRealPath(savePath);  //서버 상에 실제 업로드되는 디렉토리 지정
 		System.out.println("지정된 업로드 디렉토리 : "+savePath);
 		System.out.println("서버 상의 실제 업로드되는 디렉토리 : "+uploadFilePath);
-		
-		int n = 0;
+			
 		String pcode = "";
 		String cate = "";
-		String[] fileName = new String[3];
-		String[] oriFileName = new String[3];
+		String fileName = "";
+		String oriFileName = "";
 		PlaceDAO dao = new PlaceDAO();
 		PlaceDTO place = new PlaceDTO();
 		
@@ -52,47 +50,37 @@ public class UpdatePlaceProCtrl extends HttpServlet {
 			MultipartRequest multi = new MultipartRequest(request, uploadFilePath, 
 					uploadFileSizeLimit, encType, new DefaultFileRenamePolicy());	
 			
-			Enumeration<?> files = multi.getFileNames();
-			while(files.hasMoreElements()) {
-				String file = (String) files.nextElement();
-				fileName[n] = multi.getFilesystemName(file);
-				//중복된 파일을 업로드할 경우 파일명이 바뀐다.
-				oriFileName[n] = multi.getOriginalFileName(file);
-				n++;
-			}
-			
-			String ori_pic = multi.getParameter("ori_pic");
-					
-			if (fileName[0] == null) { // 파일이 업로드 되지 않았을때
-				place.setPic(ori_pic);
+			fileName = multi.getFilesystemName("pic");
+			if (fileName == null) { // 파일이 업로드 되지 않았을때
+				place.setPic(oriFileName);
 			} else {
-				place.setPic("/img/"+fileName[0]);
+				place.setPic("place/img/"+fileName);
 			}
 			
 			pcode = multi.getParameter("pcode");				
 			place.setPcode(pcode);
 			
 			cate = (multi.getParameter("cate1"));
-			place.setCate(multi.getParameter("cate1"));			
-			System.out.println(multi.getParameter("cate1"));
-			
+			place.setCate(multi.getParameter("cate1"));				
 			place.setPname(multi.getParameter("pname"));
 			place.setAddr(multi.getParameter("addr"));
 			place.setComm(multi.getParameter("comm"));			
 			place.setPhone(multi.getParameter("phone"));
+			place.setLat(Double.parseDouble(multi.getParameter("lat")));
+			place.setLng(Double.parseDouble(multi.getParameter("lng")));
 						
 		} catch (Exception e) {
 			System.out.print("예외 발생 : " + e);
 		}		
 		int cnt = dao.updatePlace(place);	
-		if(cnt==0){ //상품 등록 실패
-			String msg = "상품 정보를 수정하지 못했습니다.";
+		if(cnt==0){ //장소 등록 실패
+			String msg = "장소 정보를 수정하지 못했습니다.";
 			request.setAttribute("msg", msg);
 			
 			//디스패치로 view를 생성하여 proList.jsp로 요청 받은 proList를 포워드
 			RequestDispatcher view = request.getRequestDispatcher("UpdatePlace.do?pcode="+pcode);
 			view.forward(request, response);
-		} else { //상품 수정 성공시 목록으로 가기
+		} else { //장소 수정 성공시 목록으로 가기
 			response.sendRedirect("PlaceList.do?cate="+cate);
 		}
 	}

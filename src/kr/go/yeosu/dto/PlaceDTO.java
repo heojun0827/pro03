@@ -8,6 +8,8 @@ public class PlaceDTO {
 	private String phone;
 	private String comm;
 	private String pic;
+	private Double lat;
+	private Double lng;
 		
 	public String getPcode() {
 		return pcode;
@@ -50,5 +52,17 @@ public class PlaceDTO {
 	}
 	public void setPic(String pic) {
 		this.pic = pic;
-	}	
+	}
+	public Double getLat() {
+		return lat;
+	}
+	public void setLat(Double lat) {
+		this.lat = lat;
+	}
+	public Double getLng() {
+		return lng;
+	}
+	public void setLng(Double lng) {
+		this.lng = lng;
+	}		
 }

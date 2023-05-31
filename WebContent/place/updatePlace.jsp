@@ -49,7 +49,19 @@
 						<td>
 							<input type="text" name="phone" id="phone" value="${place.phone }" min="0" max="5000000" step="100" title="0~5000000" class="form-control">
 						</td>
-					</tr>		
+					</tr>
+					<tr>
+						<th><label for="lat">위도</label></th>
+						<td>
+							<input type="text" name="lat" id="lat" value="${place.lat }"  step="100" title="0~5000000" class="form-control">
+						</td>
+					</tr>
+					<tr>
+						<th><label for="lng">경도</label></th>
+						<td>
+							<input type="text" name="lng" id="lng" value="${place.lng }"  step="100" title="0~5000000" class="form-control">
+						</td>
+					</tr>									
 					<tr>
 						<th><label for="comm">장소 설명</label></th>
 						<td>
@@ -57,7 +69,7 @@
 						</td>
 					</tr>						
 					<tr>
-						<th><label for="pic">상품 이미지 변경</label></th>
+						<th><label for="pic">장소 이미지 변경</label></th>
 						<td>
 							<label for="pic">이미지 </label>
 							<p id="picAttac"><img src='${path1 }/place/${place.pic }' alt="${place.pname }"/></p>							
@@ -68,7 +80,7 @@
 					</tr>					
 					<tr>
 						<td colspan="2">
-							<input type="submit" value="상품 정보 수정" class="btn btn-danger">
+							<input type="submit" value="장소 정보 수정" class="btn btn-danger">
 							<a href="${path1 }/AdminPlaceList.do" class="btn btn-primary">장소 목록</a>				
 						</td>
 					</tr>

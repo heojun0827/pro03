@@ -31,7 +31,7 @@ public class InsertPlaceProCtrl extends HttpServlet {
 		String uploadFilePath = context.getRealPath(savePath);  //서버 상에 실제 업로드되는 디렉토리 지정
 		System.out.println("지정된 업로드 디렉토리 : "+savePath);
 		System.out.println("서버 상의 실제 업로드되는 디렉토리 : "+uploadFilePath);
-		
+				
 		String pcode = "";
 		String pname = "";
 		String cate = "";
@@ -39,6 +39,8 @@ public class InsertPlaceProCtrl extends HttpServlet {
 		String phone = "";
 		String comm = "";		
 		String fileName = "";
+		Double lat = null;
+		Double lng = null;
 			
 		//MultipartRequest의 옵션 내용
 		//1. request : 요청 받은 객체
@@ -58,7 +60,9 @@ public class InsertPlaceProCtrl extends HttpServlet {
 			cate = multi.getParameter("cate");
 			addr = multi.getParameter("addr");
 			phone = multi.getParameter("phone");
-			comm = multi.getParameter("comm");		
+			comm = multi.getParameter("comm");
+			lat = Double.parseDouble(multi.getParameter("lat"));
+			lng = Double.parseDouble(multi.getParameter("lng"));
 						
 		} catch (Exception e) {
 			System.out.print("예외 발생 : " + e);
@@ -71,17 +75,19 @@ public class InsertPlaceProCtrl extends HttpServlet {
 		place.setAddr(addr);
 		place.setPhone(phone);
 		place.setComm(comm);			
-		place.setPic(fileName);		
+		place.setPic(fileName);
+		place.setLat(lat);
+		place.setLng(lng);
 		
 		int cnt = dao.insertPlace(place);	
 		if(cnt==0){ //장소 등록실패
-			String msg = "상품이 등록되지 못했습니다.";
+			String msg = "장소이 등록되지 못했습니다.";
 			request.setAttribute("msg", msg);
 			
 			//디스패치로 view를 생성하여 noticeList.jsp로 요청 받은 notiList를 포워드
 			RequestDispatcher view = request.getRequestDispatcher("/place/insertPlace.jsp");
 			view.forward(request, response);
-		} else { //상품 등록 성공
+		} else { //장소 등록 성공
 			response.sendRedirect("PlaceList.do");
 		}
 	}

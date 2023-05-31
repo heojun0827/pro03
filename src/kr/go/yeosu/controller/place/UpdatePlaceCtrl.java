@@ -19,7 +19,7 @@ public class UpdatePlaceCtrl extends HttpServlet {
        
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		//상품코드를 받아서 dao로 전달하여 한 개의 특정 상품에 대한 정보를 로딩
+		//장소코드를 받아서 dao로 전달하여 한 개의 특정 장소에 대한 정보를 로딩
 		String pcode = request.getParameter("pcode");
 		PlaceDAO dao = new PlaceDAO();
 		PlaceDTO place = dao.getPlace(pcode); 
@@ -28,8 +28,8 @@ public class UpdatePlaceCtrl extends HttpServlet {
 		String cate = place.getCate();	 
 		HashMap<String, String> cateMap = new HashMap<String, String>();  
 		cateMap = dao.getCategory(cate);
-		System.out.println("카테고리명 : "+cateMap.get("cname"));
-		request.setAttribute("place", place);	//한 개의 상품 정보
+		
+		request.setAttribute("place", place);	//한 개의 장소 정보
 		request.setAttribute("cateMap", cateMap);	//카테고리 정보	
 		request.setAttribute("cname", cateMap.get("cname"));	//카테고리 정보
 		//디스패치로 view를 생성하여 proList.jsp로 요청 받은 proList를 포워드

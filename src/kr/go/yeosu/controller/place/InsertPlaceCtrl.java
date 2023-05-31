@@ -18,7 +18,7 @@ public class InsertPlaceCtrl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String msg = "상품을 등록합니다.";
+		String msg = "장소을 등록합니다.";
 		
 		PlaceDAO dao = new PlaceDAO();
 		ArrayList<CategoryVO> cateList = dao.getFirstCategoryList(); 

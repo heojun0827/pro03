@@ -32,7 +32,9 @@ public class PlaceDAO {
 				place.setAddr(rs.getString("addr"));
 				place.setPhone(rs.getString("phone"));
 				place.setComm(rs.getString("comm"));
-				place.setPic(rs.getString("pic"));					
+				place.setPic(rs.getString("pic"));
+				place.setLat(rs.getDouble("lat"));
+				place.setLng(rs.getDouble("lng"));
 				placeList.add(place);
 			}
 		} catch (ClassNotFoundException e) { //오라클 JDBC 클래스가 없거나 경로가 다른 경우 발생
@@ -60,7 +62,9 @@ public class PlaceDAO {
 				place.setAddr(rs.getString("addr"));
 				place.setPhone(rs.getString("phone"));
 				place.setComm(rs.getString("comm"));
-				place.setPic(rs.getString("pic"));			
+				place.setPic(rs.getString("pic"));	
+				place.setLat(rs.getDouble("lat"));
+				place.setLng(rs.getDouble("lng"));
 			}
 		} catch (ClassNotFoundException e) { //오라클 JDBC 클래스가 없거나 경로가 다른 경우 발생
 			e.printStackTrace();
@@ -89,7 +93,9 @@ public class PlaceDAO {
 				place.setAddr(rs.getString("addr"));
 				place.setPhone(rs.getString("phone"));
 				place.setComm(rs.getString("comm"));
-				place.setPic(rs.getString("pic"));					
+				place.setPic(rs.getString("pic"));	
+				place.setLat(rs.getDouble("lat"));
+				place.setLng(rs.getDouble("lng"));
 				placeList.add(place);
 			}
 		} catch (ClassNotFoundException e) { //오라클 JDBC 클래스가 없거나 경로가 다른 경우 발생
@@ -118,7 +124,9 @@ public class PlaceDAO {
 				place.setAddr(rs.getString("addr"));
 				place.setPhone(rs.getString("phone"));
 				place.setComm(rs.getString("comm"));
-				place.setPic(rs.getString("pic"));					
+				place.setPic(rs.getString("pic"));	
+				place.setLat(rs.getDouble("lat"));
+				place.setLng(rs.getDouble("lng"));
 				placeList.add(place);
 			}
 		} catch (ClassNotFoundException e) { //오라클 JDBC 클래스가 없거나 경로가 다른 경우 발생
@@ -135,24 +143,27 @@ public class PlaceDAO {
 	//카테고리 로딩
 	public HashMap<String, String> getCategory(String cate) {
 		HashMap<String, String> cateMap = new HashMap<String, String>();
-		String key = "";
+		String catekey = "";
+		String catenum = "";
+		String cnamekey = "";
 		String cname = "";
-		String grp = "";
-		String group = "";
-		String code = "";
-		String codename = "";
+		String gnamekey = "";
+		String gname = "";
+		
 		try {
 			con = MySQL8.getConnection();
 			pstmt = con.prepareStatement(MySQL8.PLACE_CNAME_SELECT);
 			pstmt.setString(1, cate);
 			rs = pstmt.executeQuery();
 			if(rs.next()){
-				code = "cate";
-				codename = rs.getString("cate");
-				key = "cname";
+				catekey = "cate";
+				catenum = rs.getString("cate");
+				
+				cnamekey = "cname";
 				cname = rs.getString("cname");
-				grp = "group";
-				group = rs.getString("gname");	
+				
+				gnamekey = "gname";
+				gname = rs.getString("gname");
 				
 			}
 		} catch (ClassNotFoundException e) { //오라클 JDBC 클래스가 없거나 경로가 다른 경우 발생
@@ -164,9 +175,9 @@ public class PlaceDAO {
 		} finally {
 			MySQL8.close(rs, pstmt, con);
 		}
-		cateMap.put(code, codename);
-		cateMap.put(key, cname);
-		cateMap.put(grp, group);
+		cateMap.put(catekey, catenum);
+		cateMap.put(cnamekey, cname);
+		cateMap.put(gnamekey, gname);
 		return cateMap;
 	}
 	
@@ -267,8 +278,10 @@ public class PlaceDAO {
 			pstmt.setString(3, place.getCate());
 			pstmt.setString(4, place.getAddr());
 			pstmt.setString(5, place.getPhone());
-			pstmt.setString(6, place.getComm());			
-			pstmt.setString(7, "data/"+place.getPic());
+			pstmt.setString(6, place.getComm());				
+			pstmt.setString(7, "/img/"+place.getPic());
+			pstmt.setDouble(8, place.getLat());
+			pstmt.setDouble(9, place.getLng());	
 			cnt = pstmt.executeUpdate();
 		} catch (ClassNotFoundException e) { //오라클 JDBC 클래스가 없거나 경로가 다른 경우 발생
 			e.printStackTrace();
@@ -293,7 +306,9 @@ public class PlaceDAO {
 			pstmt.setString(4, place.getPhone());
 			pstmt.setString(5, place.getComm());	
 			pstmt.setString(6, place.getPic());
-			pstmt.setString(7, place.getPcode());
+			pstmt.setDouble(7, place.getLat());
+			pstmt.setDouble(8, place.getLng());				
+			pstmt.setString(9, place.getPcode());
 			cnt = pstmt.executeUpdate();
 			
 		} catch (ClassNotFoundException e) { //오라클 JDBC 클래스가 없거나 경로가 다른 경우 발생
@@ -308,11 +323,11 @@ public class PlaceDAO {
 	}	
 	
 	//장소 삭제
-	public int deleteNotice(String pcode) {
+	public int deletePlace(String pcode) {
 		int cnt = 0;
 		try {
 			con = MySQL8.getConnection();
-			pstmt = con.prepareStatement(MySQL8.DELETE_NOTICE);
+			pstmt = con.prepareStatement(MySQL8.DELETE_PLACE);
 			pstmt.setString(1, pcode);
 
 			cnt = pstmt.executeUpdate();
